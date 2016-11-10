@@ -4,12 +4,40 @@ import java.util.Date;
 
 public class Movimento {
     
-    private Integer id;
     private Date data;
-    private char ope;
+    private String ope;
     private Integer quant;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getOpe() {
+        return ope;
+    }
+
+    public void setOpe(String ope) {
+        this.ope = ope;
+    }
+
+    public Integer getQuant() {
+        return quant;
+    }
     
-    public Integer depositar(Integer id, Date data, char ope, Integer quant, Integer saldo){
+    public Integer depositar(Integer id, Date data, String ope, Integer quant, Integer saldo){
         this.id = id;
         this.data = data;
         this.ope = ope;
@@ -19,7 +47,7 @@ public class Movimento {
         ///testar se a pessoa tentar depositar um numero negativo de sacas
     }
     
-    public Integer sacar(Integer id, Date data, char ope, Integer quant, Integer saldo){
+    public Integer sacar(Integer id, Date data, String ope, Integer quant, Integer saldo){
         this.id = id;
         this.data = data;
         this.ope = ope;
