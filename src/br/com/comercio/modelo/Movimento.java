@@ -2,7 +2,7 @@ package br.com.comercio.modelo;
 
 import java.util.Date;
 
-public class Movimentos {
+public class Movimento {
     
     private Integer id;
     private Date data;

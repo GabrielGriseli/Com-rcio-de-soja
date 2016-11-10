@@ -1,10 +1,15 @@
 package br.com.comercio.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pessoa {
     
     private Integer id;
     private String nome;
     private String CPF;
+    private Integer saldo = 0;
+    private List<Movimento> lancamentos = new ArrayList<Movimento>();
 
     public Integer getId() {
         return id;
@@ -24,5 +29,5 @@ public class Pessoa {
 
     public String getCPF() {
         return CPF;
-    } 
+    }   
 }
