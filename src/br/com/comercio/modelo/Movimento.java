@@ -8,6 +8,7 @@ public class Movimento {
     private String ope;
     private Integer quant;
     private Integer id;
+    private Integer id_pessoa;
 
     public Integer getId() {
         return id;
@@ -35,6 +36,18 @@ public class Movimento {
 
     public Integer getQuant() {
         return quant;
+    }
+    
+    public void setQuant(Integer quant){
+        this.quant = quant;
+    }
+
+    public Integer getId_pessoa() {
+        return id_pessoa;
+    }
+
+    public void setId_pessoa(Integer id_pessoa) {
+        this.id_pessoa = id_pessoa;
     }
     
     public Integer depositar(Integer id, Date data, String ope, Integer quant, Integer saldo){
