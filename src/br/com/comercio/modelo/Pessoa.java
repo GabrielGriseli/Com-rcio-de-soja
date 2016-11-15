@@ -7,7 +7,6 @@ public class Pessoa {
     
     private Integer id;
     private String nome;
-    private String CPF;
     private Integer saldo = 0;
     private List<Movimento> lancamentos = new ArrayList<Movimento>();
 
@@ -27,7 +26,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
-    }   
+    public Integer getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo;
+    }
 }
