@@ -2,7 +2,6 @@ package br.com.comercio.database;
 
 import br.com.comercio.modelo.Movimento;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,5 +65,20 @@ public class MovimentoDAO {
         }
         
         return movimentos;
+    }
+    
+    public void delete(Movimento movimento) throws SQLException{
+        String sql = "delete from Movimentos where id_pessoa = ?";
+        
+        try (PreparedStatement stm = con.prepareStatement(sql)){
+            stm.setInt(1, movimento.getId_pessoa());
+            stm.executeUpdate();
+            
+            con.commit();
+        }
+        catch(Exception ex){
+            System.out.println("Erro ao tentar excluir: " + ex.getLocalizedMessage());
+            con.rollback();
+        }
     }
 }
