@@ -38,6 +38,18 @@ public class PessoaForm extends javax.swing.JFrame {
         tbPesquisar = new javax.swing.JTable();
         dpMovimento = new javax.swing.JDesktopPane();
         painelMovimento = new javax.swing.JPanel();
+        lblData = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        lblOperacao = new javax.swing.JLabel();
+        lblQuantidade = new javax.swing.JLabel();
+        ftfData = new javax.swing.JFormattedTextField();
+        edQuantidade = new javax.swing.JTextField();
+        rbtEntrada = new javax.swing.JRadioButton();
+        rbtSaida = new javax.swing.JRadioButton();
+        btnGravarMovimento = new javax.swing.JToggleButton();
+        lblMovimentos = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         painelPrincipal = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         edId = new javax.swing.JTextField();
@@ -80,9 +92,7 @@ public class PessoaForm extends javax.swing.JFrame {
             .addGroup(painelPesquisarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelPesquisarLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                     .addGroup(painelPesquisarLayout.createSequentialGroup()
                         .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -93,7 +103,8 @@ public class PessoaForm extends javax.swing.JFrame {
                             .addComponent(edNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPesquisarPesquisar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         painelPesquisarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2});
@@ -134,15 +145,92 @@ public class PessoaForm extends javax.swing.JFrame {
 
         dpMovimento.setBackground(new java.awt.Color(255, 255, 255));
 
+        lblData.setText("Data:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        lblOperacao.setText("Operação:");
+
+        lblQuantidade.setText("Quantidade:");
+
+        ftfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        buttonGroup1.add(rbtEntrada);
+        rbtEntrada.setText("Entrada");
+
+        buttonGroup1.add(rbtSaida);
+        rbtSaida.setText("Saída");
+
+        btnGravarMovimento.setText("Gravar Movimento");
+
+        lblMovimentos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblMovimentos.setText("Movimentos");
+
         javax.swing.GroupLayout painelMovimentoLayout = new javax.swing.GroupLayout(painelMovimento);
         painelMovimento.setLayout(painelMovimentoLayout);
         painelMovimentoLayout.setHorizontalGroup(
             painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 618, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addGroup(painelMovimentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelMovimentoLayout.createSequentialGroup()
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelMovimentoLayout.createSequentialGroup()
+                        .addComponent(lblOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbtEntrada)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtSaida))
+                    .addGroup(painelMovimentoLayout.createSequentialGroup()
+                        .addComponent(lblQuantidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGravarMovimento))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelMovimentoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMovimentos)
+                .addGap(258, 258, 258))
         );
+
+        painelMovimentoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblData, lblOperacao, lblQuantidade});
+
         painelMovimentoLayout.setVerticalGroup(
             painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 347, Short.MAX_VALUE)
+            .addGroup(painelMovimentoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData)
+                    .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuantidade)
+                    .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOperacao)
+                    .addComponent(rbtEntrada)
+                    .addComponent(rbtSaida))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGravarMovimento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMovimentos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         dpMovimento.setLayer(painelMovimento, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -218,17 +306,17 @@ public class PessoaForm extends javax.swing.JFrame {
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(edId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(edNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,22 +391,34 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btPesquisarPesquisar;
+    private javax.swing.JToggleButton btnGravarMovimento;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JDesktopPane dpMovimento;
     private javax.swing.JDesktopPane dpPesquisar;
     private javax.swing.JTextField edId;
     private javax.swing.JTextField edIdPesquisar;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNomePesquisar;
+    private javax.swing.JTextField edQuantidade;
     private javax.swing.JTextField edSaldo;
+    private javax.swing.JFormattedTextField ftfData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblMovimentos;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblOperacao;
+    private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JPanel painelMovimento;
     private javax.swing.JPanel painelPesquisar;
     private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JRadioButton rbtEntrada;
+    private javax.swing.JRadioButton rbtSaida;
     private javax.swing.JTable tbPesquisar;
     // End of variables declaration//GEN-END:variables
 }
