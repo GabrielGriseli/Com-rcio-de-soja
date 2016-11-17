@@ -1,9 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.com.comercio.view;
+
+import br.com.comercio.database.DataBase;
+import br.com.comercio.database.MovimentoDAO;
+import br.com.comercio.database.PessoaDAO;
+import br.com.comercio.modelo.Pessoa;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +22,20 @@ public class PessoaForm extends javax.swing.JFrame {
      */
     public PessoaForm() {
         initComponents();
+        inicializar();
+    }
+    
+    private void inicializar() {
+        try {
+            pessoaDAO = new PessoaDAO(DataBase.getConnection());
+            movimentoDAO = new MovimentoDAO(DataBase.getConnection());
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        pessoas = new ArrayList<>();
+        pessoaTableModel = new PessoaTableModel(pessoas);
+        tbPessoas.setModel(pessoaTableModel);
     }
 
     /**
@@ -27,29 +47,13 @@ public class PessoaForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dpPesquisar = new javax.swing.JDesktopPane();
+        pesquisar = new javax.swing.JFrame();
         painelPesquisar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        edIdPesquisar = new javax.swing.JTextField();
-        edNomePesquisar = new javax.swing.JTextField();
+        lblNomePesquisa = new javax.swing.JLabel();
+        edNomePesquisa = new javax.swing.JTextField();
         btPesquisarPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbPesquisar = new javax.swing.JTable();
-        dpMovimento = new javax.swing.JDesktopPane();
-        painelMovimento = new javax.swing.JPanel();
-        lblData = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        lblOperacao = new javax.swing.JLabel();
-        lblQuantidade = new javax.swing.JLabel();
-        ftfData = new javax.swing.JFormattedTextField();
-        edQuantidade = new javax.swing.JTextField();
-        rbtEntrada = new javax.swing.JRadioButton();
-        rbtSaida = new javax.swing.JRadioButton();
-        btnGravarMovimento = new javax.swing.JToggleButton();
-        lblMovimentos = new javax.swing.JLabel();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        tbPessoas = new javax.swing.JTable();
         painelPrincipal = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         edId = new javax.swing.JTextField();
@@ -64,15 +68,19 @@ public class PessoaForm extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
         btMovimento = new javax.swing.JButton();
 
-        dpPesquisar.setBackground(new java.awt.Color(255, 255, 255));
+        pesquisar.setTitle("Pesquisar Pessoa");
+        pesquisar.setSize(new java.awt.Dimension(500, 400));
 
-        jLabel1.setText("Id:");
-
-        jLabel2.setText("Nome:");
+        lblNomePesquisa.setText("Nome:");
 
         btPesquisarPesquisar.setText("Pesquisar");
+        btPesquisarPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarPesquisarActionPerformed(evt);
+            }
+        });
 
-        tbPesquisar.setModel(new javax.swing.table.DefaultTableModel(
+        tbPessoas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -83,170 +91,52 @@ public class PessoaForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbPesquisar);
+        tbPessoas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPessoasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbPessoas);
 
         javax.swing.GroupLayout painelPesquisarLayout = new javax.swing.GroupLayout(painelPesquisar);
         painelPesquisar.setLayout(painelPesquisarLayout);
         painelPesquisarLayout.setHorizontalGroup(
             painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelPesquisarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPesquisarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-                    .addGroup(painelPesquisarLayout.createSequentialGroup()
-                        .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edIdPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPesquisarPesquisar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(lblNomePesquisa)
+                .addGap(10, 10, 10)
+                .addComponent(edNomePesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPesquisarPesquisar)
+                .addGap(35, 35, 35))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
-
-        painelPesquisarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2});
-
-        painelPesquisarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {edIdPesquisar, edNomePesquisar});
-
         painelPesquisarLayout.setVerticalGroup(
             painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btPesquisarPesquisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelPesquisarLayout.createSequentialGroup()
-                        .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(edIdPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(edNomePesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(painelPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNomePesquisa)
+                    .addComponent(edNomePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisarPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
         );
 
-        dpPesquisar.setLayer(painelPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout dpPesquisarLayout = new javax.swing.GroupLayout(dpPesquisar);
-        dpPesquisar.setLayout(dpPesquisarLayout);
-        dpPesquisarLayout.setHorizontalGroup(
-            dpPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pesquisarLayout = new javax.swing.GroupLayout(pesquisar.getContentPane());
+        pesquisar.getContentPane().setLayout(pesquisarLayout);
+        pesquisarLayout.setHorizontalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        dpPesquisarLayout.setVerticalGroup(
-            dpPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pesquisarLayout.setVerticalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        dpMovimento.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblData.setText("Data:");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        lblOperacao.setText("Operação:");
-
-        lblQuantidade.setText("Quantidade:");
-
-        ftfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
-        buttonGroup1.add(rbtEntrada);
-        rbtEntrada.setText("Entrada");
-
-        buttonGroup1.add(rbtSaida);
-        rbtSaida.setText("Saída");
-
-        btnGravarMovimento.setText("Gravar Movimento");
-
-        lblMovimentos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblMovimentos.setText("Movimentos");
-
-        javax.swing.GroupLayout painelMovimentoLayout = new javax.swing.GroupLayout(painelMovimento);
-        painelMovimento.setLayout(painelMovimentoLayout);
-        painelMovimentoLayout.setHorizontalGroup(
-            painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
-            .addGroup(painelMovimentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelMovimentoLayout.createSequentialGroup()
-                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelMovimentoLayout.createSequentialGroup()
-                        .addComponent(lblOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbtEntrada)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtSaida))
-                    .addGroup(painelMovimentoLayout.createSequentialGroup()
-                        .addComponent(lblQuantidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGravarMovimento))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelMovimentoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblMovimentos)
-                .addGap(258, 258, 258))
-        );
-
-        painelMovimentoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblData, lblOperacao, lblQuantidade});
-
-        painelMovimentoLayout.setVerticalGroup(
-            painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelMovimentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData)
-                    .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuantidade)
-                    .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperacao)
-                    .addComponent(rbtEntrada)
-                    .addComponent(rbtSaida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGravarMovimento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblMovimentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        dpMovimento.setLayer(painelMovimento, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout dpMovimentoLayout = new javax.swing.GroupLayout(dpMovimento);
-        dpMovimento.setLayout(dpMovimentoLayout);
-        dpMovimentoLayout.setHorizontalGroup(
-            dpMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelMovimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        dpMovimentoLayout.setVerticalGroup(
-            dpMovimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelMovimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Comércio de Soja");
 
         lblId.setText("Id:");
 
@@ -255,14 +145,39 @@ public class PessoaForm extends javax.swing.JFrame {
         lblSaldo.setText("Saldo:");
 
         btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
 
         btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
 
         btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         btMovimento.setText("Movimento");
 
@@ -348,6 +263,118 @@ public class PessoaForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        // TODO add your handling code here:
+        pesquisar.setVisible(true);
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        // TODO add your handling code here:
+        pessoa = new Pessoa();
+        edId.setText("");
+        edNome.setText("");
+        edNome.grabFocus();
+        
+        edNome.setEnabled(true);
+        btNovo.setEnabled(false);
+        btPesquisar.setEnabled(false);
+        btMovimento.setEnabled(false);
+        btGravar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btExcluir.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
+        // TODO add your handling code here:
+        if (edId.getText() != null && !edId.getText().isEmpty()){
+            pessoa.setId(Integer.parseInt(edId.getText()));
+            pessoa.setSaldo(Integer.parseInt(edSaldo.getText()));
+        }
+        else
+            pessoa.setSaldo(0);
+        pessoa.setNome(edNome.getText());
+        
+        try{
+            if (pessoa.getId() == null || pessoa.getId() == 0){
+                Integer id = pessoaDAO.create(pessoa);
+                pessoa.setId(id);
+                edId.setText(id.toString());
+            }
+            else
+                pessoaDAO.update(pessoa);
+            
+            btNovo.setEnabled(true);
+            btPesquisar.setEnabled(true);
+            btMovimento.setEnabled(false);
+            btExcluir.setEnabled(true);
+            btCancelar.setEnabled(true);
+            
+            JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch(SQLException ex){
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
+        }
+    }//GEN-LAST:event_btGravarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        // TODO add your handling code here:
+        pessoa = null;
+        edId.setText("");
+        edNome.setText("");
+        edSaldo.setText("");
+        btNovo.setEnabled(true);
+        btGravar.setEnabled(false);
+        btCancelar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btPesquisar.setEnabled(true);
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+        int resultado = JOptionPane.showConfirmDialog(this, "Confirma exclusão", "Confirmação", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(resultado == 0) {
+            try {
+                pessoaDAO.delete(pessoa);
+                edId.setText("");
+                edNome.setText("");
+                edSaldo.setText("");
+                btExcluir.setEnabled(false);
+                btCancelar.setEnabled(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Erro ao excluir", "Erro", JOptionPane.ERROR);
+            }
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btPesquisarPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarPesquisarActionPerformed
+        // TODO add your handling code here:
+         try {
+            pessoas = pessoaDAO.findByNome(edNomePesquisa.getText());
+            pessoaTableModel.setPessoas(pessoas);
+            pessoaTableModel.fireTableDataChanged();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btPesquisarPesquisarActionPerformed
+
+    private void tbPessoasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPessoasMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2) {
+            pessoa = pessoas.get(tbPessoas.getSelectedRow());
+            edId.setText(pessoa.getId().toString());
+            edNome.setText(pessoa.getNome());
+            edSaldo.setText(pessoa.getSaldo().toString());
+            pesquisar.setVisible(false);
+            edNome.setEnabled(true);
+            btNovo.setEnabled(false);
+            btGravar.setEnabled(true);
+            btCancelar.setEnabled(true);
+            btExcluir.setEnabled(true);
+        }
+    }//GEN-LAST:event_tbPessoasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -391,34 +418,23 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btPesquisarPesquisar;
-    private javax.swing.JToggleButton btnGravarMovimento;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JDesktopPane dpMovimento;
-    private javax.swing.JDesktopPane dpPesquisar;
     private javax.swing.JTextField edId;
-    private javax.swing.JTextField edIdPesquisar;
     private javax.swing.JTextField edNome;
-    private javax.swing.JTextField edNomePesquisar;
-    private javax.swing.JTextField edQuantidade;
+    private javax.swing.JTextField edNomePesquisa;
     private javax.swing.JTextField edSaldo;
-    private javax.swing.JFormattedTextField ftfData;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblId;
-    private javax.swing.JLabel lblMovimentos;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblOperacao;
-    private javax.swing.JLabel lblQuantidade;
+    private javax.swing.JLabel lblNomePesquisa;
     private javax.swing.JLabel lblSaldo;
-    private javax.swing.JPanel painelMovimento;
     private javax.swing.JPanel painelPesquisar;
     private javax.swing.JPanel painelPrincipal;
-    private javax.swing.JRadioButton rbtEntrada;
-    private javax.swing.JRadioButton rbtSaida;
-    private javax.swing.JTable tbPesquisar;
+    private javax.swing.JFrame pesquisar;
+    private javax.swing.JTable tbPessoas;
     // End of variables declaration//GEN-END:variables
+    private Pessoa pessoa;
+    private PessoaDAO pessoaDAO;
+    private MovimentoDAO movimentoDAO;
+    private List<Pessoa> pessoas;
+    private PessoaTableModel pessoaTableModel;
 }
