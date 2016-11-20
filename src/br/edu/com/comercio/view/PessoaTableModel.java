@@ -53,4 +53,8 @@ public class PessoaTableModel extends AbstractTableModel{
         }
     }
     
+    public void limpar() {
+        pessoas.clear();
+        fireTableDataChanged();
+    }
 }
