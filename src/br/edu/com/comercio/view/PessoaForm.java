@@ -39,8 +39,11 @@ public class PessoaForm extends javax.swing.JFrame {
         }
 
         pessoas = new ArrayList<>();
+        movimentos = new ArrayList<>();
         pessoaTableModel = new PessoaTableModel(pessoas);
+        movimentoTableModel = new MovimentoTableModel(movimentos);
         tbPessoas.setModel(pessoaTableModel);
+        tbMovimentos.setModel(movimentoTableModel);
     }
 
     /**
@@ -52,14 +55,14 @@ public class PessoaForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pesquisar = new javax.swing.JFrame();
+        frmpesquisar = new javax.swing.JFrame();
         painelPesquisar = new javax.swing.JPanel();
         lblNomePesquisa = new javax.swing.JLabel();
         edNomePesquisa = new javax.swing.JTextField();
         btPesquisarPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPessoas = new javax.swing.JTable();
-        movimentos = new javax.swing.JFrame();
+        frmmovimentos = new javax.swing.JFrame();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -69,7 +72,7 @@ public class PessoaForm extends javax.swing.JFrame {
         rbtSaída = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbMovimentos = new javax.swing.JTable();
         ftfData = new javax.swing.JFormattedTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelPrincipal = new javax.swing.JPanel();
@@ -86,8 +89,8 @@ public class PessoaForm extends javax.swing.JFrame {
         btExcluir = new javax.swing.JButton();
         btMovimento = new javax.swing.JButton();
 
-        pesquisar.setTitle("Pesquisar Pessoa");
-        pesquisar.setSize(new java.awt.Dimension(500, 400));
+        frmpesquisar.setTitle("Pesquisar Pessoa");
+        frmpesquisar.setSize(new java.awt.Dimension(500, 400));
 
         lblNomePesquisa.setText("Nome:");
 
@@ -142,18 +145,18 @@ public class PessoaForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pesquisarLayout = new javax.swing.GroupLayout(pesquisar.getContentPane());
-        pesquisar.getContentPane().setLayout(pesquisarLayout);
-        pesquisarLayout.setHorizontalGroup(
-            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout frmpesquisarLayout = new javax.swing.GroupLayout(frmpesquisar.getContentPane());
+        frmpesquisar.getContentPane().setLayout(frmpesquisarLayout);
+        frmpesquisarLayout.setHorizontalGroup(
+            frmpesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        pesquisarLayout.setVerticalGroup(
-            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        frmpesquisarLayout.setVerticalGroup(
+            frmpesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        movimentos.setSize(new java.awt.Dimension(500, 400));
+        frmmovimentos.setSize(new java.awt.Dimension(500, 400));
 
         jLabel1.setText("Data:");
 
@@ -174,7 +177,7 @@ public class PessoaForm extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMovimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -185,7 +188,7 @@ public class PessoaForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tbMovimentos);
 
         try {
             ftfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -243,14 +246,14 @@ public class PessoaForm extends javax.swing.JFrame {
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout movimentosLayout = new javax.swing.GroupLayout(movimentos.getContentPane());
-        movimentos.getContentPane().setLayout(movimentosLayout);
-        movimentosLayout.setHorizontalGroup(
-            movimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout frmmovimentosLayout = new javax.swing.GroupLayout(frmmovimentos.getContentPane());
+        frmmovimentos.getContentPane().setLayout(frmmovimentosLayout);
+        frmmovimentosLayout.setHorizontalGroup(
+            frmmovimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        movimentosLayout.setVerticalGroup(
-            movimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        frmmovimentosLayout.setVerticalGroup(
+            frmmovimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -389,7 +392,7 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         // TODO add your handling code here:
-        pesquisar.setVisible(true);
+        frmpesquisar.setVisible(true);
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
@@ -489,7 +492,7 @@ public class PessoaForm extends javax.swing.JFrame {
             edId.setText(pessoa.getId().toString());
             edNome.setText(pessoa.getNome());
             edSaldo.setText(pessoa.getSaldo().toString());
-            pesquisar.setVisible(false);
+            frmpesquisar.setVisible(false);
             edNome.setEnabled(true);
             btNovo.setEnabled(false);
             btGravar.setEnabled(true);
@@ -538,7 +541,14 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
         // TODO add your handling code here:
-        movimentos.setVisible(true);
+        frmmovimentos.setVisible(true);
+        try {
+            movimentos = movimentoDAO.findyById_pessoa(Integer.parseInt(edId.getText()));
+            movimentoTableModel.setMovimentos(movimentos);
+            movimentoTableModel.fireTableDataChanged();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btMovimentoActionPerformed
 
     /**
@@ -590,6 +600,8 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JTextField edNomePesquisa;
     private javax.swing.JTextField edQuantidade;
     private javax.swing.JTextField edSaldo;
+    private javax.swing.JFrame frmmovimentos;
+    private javax.swing.JFrame frmpesquisar;
     private javax.swing.JFormattedTextField ftfData;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -598,23 +610,23 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomePesquisa;
     private javax.swing.JLabel lblSaldo;
-    private javax.swing.JFrame movimentos;
     private javax.swing.JPanel painelPesquisar;
     private javax.swing.JPanel painelPrincipal;
-    private javax.swing.JFrame pesquisar;
     private javax.swing.JRadioButton rbtEntrada;
     private javax.swing.JRadioButton rbtSaída;
+    private javax.swing.JTable tbMovimentos;
     private javax.swing.JTable tbPessoas;
     // End of variables declaration//GEN-END:variables
     private Pessoa pessoa;
     private PessoaDAO pessoaDAO;
     private MovimentoDAO movimentoDAO;
     private List<Pessoa> pessoas;
+    private List<Movimento> movimentos;
     private PessoaTableModel pessoaTableModel;
+    private MovimentoTableModel movimentoTableModel;
     private Movimento movimento;
 }
