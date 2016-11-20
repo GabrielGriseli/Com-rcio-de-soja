@@ -29,7 +29,7 @@ public class PessoaForm extends javax.swing.JFrame {
         initComponents();
         inicializar();
     }
-    
+
     private void inicializar() {
         try {
             pessoaDAO = new PessoaDAO(DataBase.getConnection());
@@ -37,7 +37,7 @@ public class PessoaForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         pessoas = new ArrayList<>();
         pessoaTableModel = new PessoaTableModel(pessoas);
         tbPessoas.setModel(pessoaTableModel);
@@ -64,7 +64,7 @@ public class PessoaForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        edQunatidade = new javax.swing.JTextField();
+        edQuantidade = new javax.swing.JTextField();
         rbtEntrada = new javax.swing.JRadioButton();
         rbtSaída = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
@@ -210,7 +210,7 @@ public class PessoaForm extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(edQunatidade)
+                                    .addComponent(edQuantidade)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(rbtEntrada)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +230,7 @@ public class PessoaForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(edQunatidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -398,7 +398,7 @@ public class PessoaForm extends javax.swing.JFrame {
         edId.setText("");
         edNome.setText("");
         edNome.grabFocus();
-        
+
         edNome.setEnabled(true);
         btNovo.setEnabled(false);
         btPesquisar.setEnabled(false);
@@ -410,32 +410,31 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarActionPerformed
         // TODO add your handling code here:
-        if (edId.getText() != null && !edId.getText().isEmpty()){
+        if (edId.getText() != null && !edId.getText().isEmpty()) {
             pessoa.setId(Integer.parseInt(edId.getText()));
             pessoa.setSaldo(Integer.parseInt(edSaldo.getText()));
-        }
-        else
+        } else {
             pessoa.setSaldo(0);
+        }
         pessoa.setNome(edNome.getText());
-        
-        try{
-            if (pessoa.getId() == null || pessoa.getId() == 0){
+
+        try {
+            if (pessoa.getId() == null || pessoa.getId() == 0) {
                 Integer id = pessoaDAO.create(pessoa);
                 pessoa.setId(id);
                 edId.setText(id.toString());
-            }
-            else
+            } else {
                 pessoaDAO.update(pessoa);
-            
+            }
+
             btNovo.setEnabled(true);
             btPesquisar.setEnabled(true);
             btMovimento.setEnabled(false);
             btExcluir.setEnabled(true);
             btCancelar.setEnabled(true);
-            
+
             JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
         }
@@ -457,7 +456,7 @@ public class PessoaForm extends javax.swing.JFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         // TODO add your handling code here:
         int resultado = JOptionPane.showConfirmDialog(this, "Confirma exclusão", "Confirmação", JOptionPane.YES_NO_CANCEL_OPTION);
-        if(resultado == 0) {
+        if (resultado == 0) {
             try {
                 pessoaDAO.delete(pessoa);
                 edId.setText("");
@@ -474,7 +473,7 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void btPesquisarPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarPesquisarActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             pessoas = pessoaDAO.findByNome(edNomePesquisa.getText());
             pessoaTableModel.setPessoas(pessoas);
             pessoaTableModel.fireTableDataChanged();
@@ -485,7 +484,7 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void tbPessoasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPessoasMouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             pessoa = pessoas.get(tbPessoas.getSelectedRow());
             edId.setText(pessoa.getId().toString());
             edNome.setText(pessoa.getNome());
@@ -501,37 +500,40 @@ public class PessoaForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         Date data = null;
-        DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
-        df.setLenient (false); // aqui o pulo do gato
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setLenient(false); // aqui o pulo do gato
         try {
-            data = df.parse (ftfData.getText());
+            data = df.parse(ftfData.getText());
             // data válida
-            
+
             movimento = new Movimento();
-            
-            
+            movimento.setData(data);
+            movimento.setQuant(Integer.parseInt(edQuantidade.getText()));
+            if (rbtEntrada.isSelected()) {
+                movimento.setOpe("E");
+            } else {
+                movimento.setOpe("S");
+            }
+            movimento.setId_pessoa(Integer.parseInt(edId.getText()));
+
+            try {
+                Integer id = movimentoDAO.create(movimento);
+                movimento.setId(id);
+
+                JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
+            }
+
         } catch (ParseException ex) {
             Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Data invalida", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             ftfData.setText("");
             // data inválida
         }
-        /*movimento = new Movimento();
-        
-        DateFormat df = new SimpleDateFormat("dd/MM/yyy");
-        Date novaData = null;
-        try {
-            novaData = df.parse(ftfData.getText());
-        } catch (ParseException ex) {
-            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        movimento.setData(novaData);
-        */
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
@@ -586,7 +588,7 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JTextField edId;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNomePesquisa;
-    private javax.swing.JTextField edQunatidade;
+    private javax.swing.JTextField edQuantidade;
     private javax.swing.JTextField edSaldo;
     private javax.swing.JFormattedTextField ftfData;
     private javax.swing.JButton jButton1;
