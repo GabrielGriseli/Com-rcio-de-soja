@@ -3,9 +3,14 @@ package br.edu.com.comercio.view;
 import br.com.comercio.database.DataBase;
 import br.com.comercio.database.MovimentoDAO;
 import br.com.comercio.database.PessoaDAO;
+import br.com.comercio.modelo.Movimento;
 import br.com.comercio.modelo.Pessoa;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +59,19 @@ public class PessoaForm extends javax.swing.JFrame {
         btPesquisarPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPessoas = new javax.swing.JTable();
+        movimentos = new javax.swing.JFrame();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        edQunatidade = new javax.swing.JTextField();
+        rbtEntrada = new javax.swing.JRadioButton();
+        rbtSaída = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        ftfData = new javax.swing.JFormattedTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         painelPrincipal = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         edId = new javax.swing.JTextField();
@@ -135,6 +153,107 @@ public class PessoaForm extends javax.swing.JFrame {
             .addComponent(painelPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        movimentos.setSize(new java.awt.Dimension(500, 400));
+
+        jLabel1.setText("Data:");
+
+        jLabel2.setText("Quantidade:");
+
+        jLabel3.setText("Operação:");
+
+        buttonGroup1.add(rbtEntrada);
+        rbtEntrada.setText("Entrada");
+
+        buttonGroup1.add(rbtSaída);
+        rbtSaída.setText("Saída");
+
+        jButton1.setText("Gravar Movimento");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        try {
+            ftfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(edQunatidade)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(rbtEntrada)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbtSaída)
+                                        .addGap(0, 4, Short.MAX_VALUE))
+                                    .addComponent(ftfData)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(edQunatidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(rbtEntrada)
+                    .addComponent(rbtSaída))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout movimentosLayout = new javax.swing.GroupLayout(movimentos.getContentPane());
+        movimentos.getContentPane().setLayout(movimentosLayout);
+        movimentosLayout.setHorizontalGroup(
+            movimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        movimentosLayout.setVerticalGroup(
+            movimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comércio de Soja");
 
@@ -180,6 +299,11 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btMovimento.setText("Movimento");
+        btMovimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMovimentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
@@ -375,6 +499,46 @@ public class PessoaForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbPessoasMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        Date data = null;
+        DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
+        df.setLenient (false); // aqui o pulo do gato
+        try {
+            data = df.parse (ftfData.getText());
+            // data válida
+            
+            movimento = new Movimento();
+            
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Data invalida", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            ftfData.setText("");
+            // data inválida
+        }
+        /*movimento = new Movimento();
+        
+        DateFormat df = new SimpleDateFormat("dd/MM/yyy");
+        Date novaData = null;
+        try {
+            novaData = df.parse(ftfData.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        movimento.setData(novaData);
+        */
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
+        // TODO add your handling code here:
+        movimentos.setVisible(true);
+    }//GEN-LAST:event_btMovimentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,18 +582,31 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btPesquisarPesquisar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField edId;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNomePesquisa;
+    private javax.swing.JTextField edQunatidade;
     private javax.swing.JTextField edSaldo;
+    private javax.swing.JFormattedTextField ftfData;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomePesquisa;
     private javax.swing.JLabel lblSaldo;
+    private javax.swing.JFrame movimentos;
     private javax.swing.JPanel painelPesquisar;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JFrame pesquisar;
+    private javax.swing.JRadioButton rbtEntrada;
+    private javax.swing.JRadioButton rbtSaída;
     private javax.swing.JTable tbPessoas;
     // End of variables declaration//GEN-END:variables
     private Pessoa pessoa;
@@ -437,4 +614,5 @@ public class PessoaForm extends javax.swing.JFrame {
     private MovimentoDAO movimentoDAO;
     private List<Pessoa> pessoas;
     private PessoaTableModel pessoaTableModel;
+    private Movimento movimento;
 }
