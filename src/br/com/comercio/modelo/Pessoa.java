@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pessoa {
-    
+
     private Integer id;
     private String nome;
     private Integer saldo = 0;
@@ -32,5 +32,21 @@ public class Pessoa {
 
     public void setSaldo(Integer saldo) {
         this.saldo = saldo;
+    }
+
+    public void depositar(Integer valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.saldo += valor;    
+        }    
+    }
+
+    public void sacar(Integer valor) {
+        if (saldo < valor) {
+            throw new IllegalArgumentException();
+        } else {
+            saldo -= valor;
+        }
     }
 }

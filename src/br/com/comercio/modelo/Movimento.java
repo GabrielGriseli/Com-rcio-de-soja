@@ -49,25 +49,4 @@ public class Movimento {
     public void setId_pessoa(Integer id_pessoa) {
         this.id_pessoa = id_pessoa;
     }
-    
-    public Integer depositar(Integer id, Date data, String ope, Integer quant, Integer saldo){
-        this.id = id;
-        this.data = data;
-        this.ope = ope;
-        this.quant = quant;
-        
-        return saldo + quant;
-        ///testar se a pessoa tentar depositar um numero negativo de sacas
-    }
-    
-    public Integer sacar(Integer id, Date data, String ope, Integer quant, Integer saldo){
-        this.id = id;
-        this.data = data;
-        this.ope = ope;
-        this.quant = quant;
-        
-        return saldo - quant;
-        ///testar se a pessoa pode sacar o valor
-        ///tentar sacar o valor em dinheiro e não em sacos de soja
-    }
 }
