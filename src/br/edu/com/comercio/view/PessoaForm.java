@@ -5,6 +5,7 @@ import br.com.comercio.database.MovimentoDAO;
 import br.com.comercio.database.PessoaDAO;
 import br.com.comercio.modelo.Movimento;
 import br.com.comercio.modelo.Pessoa;
+import br.com.comercio.modelo.QuantidadeInvalidaException;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -71,6 +72,8 @@ public class PessoaForm extends javax.swing.JFrame {
         tbMovimentos = new javax.swing.JTable();
         lblHistoricoMov = new javax.swing.JLabel();
         ftfData = new javax.swing.JFormattedTextField();
+        lblSaldoMov = new javax.swing.JLabel();
+        edSaldoMov = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
         painelPrincipal = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
@@ -213,6 +216,10 @@ public class PessoaForm extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        lblSaldoMov.setText("Saldo:");
+
+        edSaldoMov.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,20 +235,23 @@ public class PessoaForm extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbtDepositar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rbtSacar))
-                                    .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(44, 44, 44)
-                                .addComponent(btGravarMov))))
+                                .addComponent(rbtDepositar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtSacar))
+                            .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblSaldoMov)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(edSaldoMov))
+                            .addComponent(btGravarMov, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(lblHistoricoMov)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +261,9 @@ public class PessoaForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSaldoMov)
+                            .addComponent(edSaldoMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -434,56 +446,45 @@ public class PessoaForm extends javax.swing.JFrame {
     private void btGravarMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarMovActionPerformed
         Date data = null;
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setLenient(false); // aqui o pulo do gato
+        df.setLenient(false);
+
         try {
             data = df.parse(ftfData.getText());
-            // data válida
-
-            try {
-                movimento = new Movimento();
-                movimento.setData(data);
-                movimento.setQuant(Integer.parseInt(edQuantidade.getText()));
-                if (rbtDepositar.isSelected()) {
-                    movimento.setOpe("D");
-                    pessoa.depositar(movimento.getQuant());
-                } else {
-                    movimento.setOpe("S");
-                    pessoa.sacar(movimento.getQuant());
-                }
-                try {
-                    pessoaDAO.update(pessoa);
-                    edSaldo.setText(pessoa.getSaldo().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                movimento.setId_pessoa(Integer.parseInt(edId.getText()));
-
-                try {
-                    Integer id = movimentoDAO.create(movimento);
-                    movimento.setId(id);
-
-                    JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
-                }
-            } catch (IllegalArgumentException ex) {
-                Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Quantidade inválida", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            movimento = new Movimento();
+            movimento.setData(data);
+            movimento.setQuant(Integer.parseInt(edQuantidade.getText()));
+            if (rbtDepositar.isSelected()) {
+                movimento.setOpe("D");
+                pessoa.depositar(movimento.getQuant());
+            } else {
+                movimento.setOpe("S");
+                pessoa.sacar(movimento.getQuant());
             }
 
+            movimento.setId_pessoa(Integer.parseInt(edId.getText()));
+            Integer id = movimentoDAO.create(movimento);
+            pessoaDAO.update(pessoa);
+            edSaldo.setText(pessoa.getSaldo().toString());
+            movimento.setId(id);
+            JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } catch (QuantidadeInvalidaException qi) {
+            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, qi);
+            JOptionPane.showMessageDialog(this, qi.getMessage(), "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
         } catch (ParseException ex) {
-            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Data invalida", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             ftfData.setText("");
             // data inválida
         }
-        
+
         ftfData.setText("");
         edQuantidade.setText("");
         rbtDepositar.setSelected(false);
         rbtSacar.setSelected(false);
-        
+
         frmmovimentos.setLocationRelativeTo(null);
         frmmovimentos.setVisible(true);
         try {
@@ -492,11 +493,12 @@ public class PessoaForm extends javax.swing.JFrame {
             movimentoTableModel.fireTableDataChanged();
         } catch (SQLException ex) {
             Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }//GEN-LAST:event_btGravarMovActionPerformed
 
     private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
         frmmovimentos.setLocationRelativeTo(null);
+        edSaldoMov.setText(pessoa.getSaldo().toString());
         frmmovimentos.setVisible(true);
         try {
             movimentos = movimentoDAO.findyById_pessoa(Integer.parseInt(edId.getText()));
@@ -512,6 +514,7 @@ public class PessoaForm extends javax.swing.JFrame {
         if (resultado == 0) {
             try {
                 pessoaDAO.delete(pessoa);
+                movimentoDAO.delete(pessoa.getId());
                 edId.setText("");
                 edNome.setText("");
                 edSaldo.setText("");
@@ -662,6 +665,7 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JTextField edNomePesquisa;
     private javax.swing.JTextField edQuantidade;
     private javax.swing.JTextField edSaldo;
+    private javax.swing.JTextField edSaldoMov;
     private javax.swing.JFrame frmmovimentos;
     private javax.swing.JFrame frmpesquisar;
     private javax.swing.JFormattedTextField ftfData;
@@ -676,6 +680,7 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomePesquisa;
     private javax.swing.JLabel lblSaldo;
+    private javax.swing.JLabel lblSaldoMov;
     private javax.swing.JPanel painelPesquisar;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JRadioButton rbtDepositar;

@@ -67,11 +67,11 @@ public class MovimentoDAO {
         return movimentos;
     }
     
-    public void delete(Movimento movimento) throws SQLException{
+    public void delete(Integer id_pessoa) throws SQLException{
         String sql = "delete from Movimentos where id_pessoa = ?";
         
         try (PreparedStatement stm = con.prepareStatement(sql)){
-            stm.setInt(1, movimento.getId_pessoa());
+            stm.setInt(1, id_pessoa);
             stm.executeUpdate();
             
             con.commit();

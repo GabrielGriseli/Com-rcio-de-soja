@@ -34,17 +34,17 @@ public class Pessoa {
         this.saldo = saldo;
     }
 
-    public void depositar(Integer valor) {
+    public void depositar(Integer valor) throws QuantidadeInvalidaException {
         if (valor <= 0) {
-            throw new IllegalArgumentException();
+            throw new QuantidadeInvalidaException("Quantidade invalida!");
         } else {
             this.saldo += valor;    
         }    
     }
 
-    public void sacar(Integer valor) {
+    public void sacar(Integer valor) throws QuantidadeInvalidaException {
         if (saldo < valor) {
-            throw new IllegalArgumentException();
+            throw new QuantidadeInvalidaException("Saldo insuficiente!");
         } else {
             saldo -= valor;
         }
