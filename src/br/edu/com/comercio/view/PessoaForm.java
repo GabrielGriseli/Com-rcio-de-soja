@@ -74,7 +74,7 @@ public class PessoaForm extends javax.swing.JFrame {
         ftfData = new javax.swing.JFormattedTextField();
         lblSaldoMov = new javax.swing.JLabel();
         edSaldoMov = new javax.swing.JTextField();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        btgBotoes = new javax.swing.ButtonGroup();
         painelPrincipal = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         edId = new javax.swing.JTextField();
@@ -178,10 +178,10 @@ public class PessoaForm extends javax.swing.JFrame {
 
         jLabel3.setText("Operação:");
 
-        buttonGroup1.add(rbtDepositar);
+        btgBotoes.add(rbtDepositar);
         rbtDepositar.setText("Depositar");
 
-        buttonGroup1.add(rbtSacar);
+        btgBotoes.add(rbtSacar);
         rbtSacar.setText("Sacar");
 
         btGravarMov.setText("Gravar Movimento");
@@ -305,11 +305,14 @@ public class PessoaForm extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
+        edNome.setNextFocusableComponent(btPesquisar);
+
         lblSaldo.setText("Saldo:");
 
         edSaldo.setEditable(false);
 
         btNovo.setText("Novo");
+        btNovo.setNextFocusableComponent(btGravar);
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -317,6 +320,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btPesquisar.setText("Pesquisar");
+        btPesquisar.setNextFocusableComponent(btMovimento);
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);
@@ -324,6 +328,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btGravar.setText("Gravar");
+        btGravar.setNextFocusableComponent(btCancelar);
         btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGravarActionPerformed(evt);
@@ -331,6 +336,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btCancelar.setText("Cancelar");
+        btCancelar.setNextFocusableComponent(btExcluir);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelarActionPerformed(evt);
@@ -338,6 +344,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btExcluir.setText("Excluir");
+        btExcluir.setNextFocusableComponent(edNome);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirActionPerformed(evt);
@@ -345,6 +352,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btMovimento.setText("Movimento");
+        btMovimento.setNextFocusableComponent(btNovo);
         btMovimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btMovimentoActionPerformed(evt);
@@ -461,7 +469,7 @@ public class PessoaForm extends javax.swing.JFrame {
                 pessoa.sacar(movimento.getQuant());
             }
 
-            movimento.setId_pessoa(Integer.parseInt(edId.getText()));
+            movimento.setId_pessoa(pessoa.getId());
             Integer id = movimentoDAO.create(movimento);
             pessoaDAO.update(pessoa);
             edSaldo.setText(pessoa.getSaldo().toString());
@@ -482,31 +490,17 @@ public class PessoaForm extends javax.swing.JFrame {
 
         ftfData.setText("");
         edQuantidade.setText("");
-        rbtDepositar.setSelected(false);
-        rbtSacar.setSelected(false);
-
-        frmmovimentos.setLocationRelativeTo(null);
-        frmmovimentos.setVisible(true);
-        try {
-            movimentos = movimentoDAO.findyById_pessoa(Integer.parseInt(edId.getText()));
-            movimentoTableModel.setMovimentos(movimentos);
-            movimentoTableModel.fireTableDataChanged();
-        } catch (SQLException ex) {
-            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        btgBotoes.clearSelection();
+        edSaldoMov.setText(pessoa.getSaldo().toString());
+        
+        atualizaMovimentos();
     }//GEN-LAST:event_btGravarMovActionPerformed
 
     private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
         frmmovimentos.setLocationRelativeTo(null);
         edSaldoMov.setText(pessoa.getSaldo().toString());
         frmmovimentos.setVisible(true);
-        try {
-            movimentos = movimentoDAO.findyById_pessoa(Integer.parseInt(edId.getText()));
-            movimentoTableModel.setMovimentos(movimentos);
-            movimentoTableModel.fireTableDataChanged();
-        } catch (SQLException ex) {
-            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        atualizaMovimentos();
     }//GEN-LAST:event_btMovimentoActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -640,6 +634,16 @@ public class PessoaForm extends javax.swing.JFrame {
         tbPessoas.grabFocus();                     //da foco na tabela
         tbPessoas.addRowSelectionInterval(0, 0);  //seleciona a primeira linha
     }
+    
+    private void atualizaMovimentos(){
+        try {
+            movimentos = movimentoDAO.findyById_pessoa(Integer.parseInt(edId.getText()));
+            movimentoTableModel.setMovimentos(movimentos);
+            movimentoTableModel.fireTableDataChanged();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static void main(String args[]) {
 
@@ -659,7 +663,7 @@ public class PessoaForm extends javax.swing.JFrame {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btPesquisarPesquisar;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup btgBotoes;
     private javax.swing.JTextField edId;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNomePesquisa;

@@ -45,6 +45,8 @@ public class Pessoa {
     public void sacar(Integer valor) throws QuantidadeInvalidaException {
         if (saldo < valor) {
             throw new QuantidadeInvalidaException("Saldo insuficiente!");
+        } else if (valor <= 0){
+            throw new QuantidadeInvalidaException("Quantidade invalida!");
         } else {
             saldo -= valor;
         }

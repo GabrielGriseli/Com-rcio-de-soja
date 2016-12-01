@@ -260,7 +260,7 @@
             <Component class="javax.swing.JRadioButton" name="rbtDepositar">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="btgBotoes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Depositar"/>
               </Properties>
@@ -268,7 +268,7 @@
             <Component class="javax.swing.JRadioButton" name="rbtSacar">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="btgBotoes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sacar"/>
               </Properties>
@@ -363,7 +363,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.ButtonGroup" name="btgBotoes">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -492,6 +492,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="edNome">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btPesquisar"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSaldo">
           <Properties>
@@ -506,6 +511,9 @@
         <Component class="javax.swing.JButton" name="btNovo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Novo"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btGravar"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoActionPerformed"/>
@@ -514,6 +522,9 @@
         <Component class="javax.swing.JButton" name="btPesquisar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pesquisar"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btMovimento"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPesquisarActionPerformed"/>
@@ -522,6 +533,9 @@
         <Component class="javax.swing.JButton" name="btGravar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Gravar"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btCancelar"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btGravarActionPerformed"/>
@@ -530,6 +544,9 @@
         <Component class="javax.swing.JButton" name="btCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btExcluir"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCancelarActionPerformed"/>
@@ -538,6 +555,9 @@
         <Component class="javax.swing.JButton" name="btExcluir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="edNome"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btExcluirActionPerformed"/>
@@ -546,6 +566,9 @@
         <Component class="javax.swing.JButton" name="btMovimento">
           <Properties>
             <Property name="text" type="java.lang.String" value="Movimento"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="btNovo"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btMovimentoActionPerformed"/>
