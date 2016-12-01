@@ -95,6 +95,7 @@ public class PessoaForm extends javax.swing.JFrame {
         lblNomePesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNomePesquisa.setText("Nome:");
 
+        edNomePesquisa.setNextFocusableComponent(btPesquisarPesquisar);
         edNomePesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 edNomePesquisaKeyPressed(evt);
@@ -102,6 +103,7 @@ public class PessoaForm extends javax.swing.JFrame {
         });
 
         btPesquisarPesquisar.setText("Pesquisar");
+        btPesquisarPesquisar.setNextFocusableComponent(tbPessoas);
         btPesquisarPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarPesquisarActionPerformed(evt);
@@ -119,6 +121,7 @@ public class PessoaForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbPessoas.setNextFocusableComponent(edNomePesquisa);
         tbPessoas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbPessoasMouseClicked(evt);
@@ -178,16 +181,26 @@ public class PessoaForm extends javax.swing.JFrame {
 
         jLabel3.setText("Operação:");
 
+        edQuantidade.setNextFocusableComponent(rbtDepositar);
+
         btgBotoes.add(rbtDepositar);
         rbtDepositar.setText("Depositar");
+        rbtDepositar.setNextFocusableComponent(rbtSacar);
 
         btgBotoes.add(rbtSacar);
         rbtSacar.setText("Sacar");
+        rbtSacar.setNextFocusableComponent(btGravarMov);
 
         btGravarMov.setText("Gravar Movimento");
+        btGravarMov.setNextFocusableComponent(ftfData);
         btGravarMov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGravarMovActionPerformed(evt);
+            }
+        });
+        btGravarMov.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btGravarMovKeyPressed(evt);
             }
         });
 
@@ -215,6 +228,7 @@ public class PessoaForm extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        ftfData.setNextFocusableComponent(edQuantidade);
 
         lblSaldoMov.setText("Saldo:");
 
@@ -452,48 +466,7 @@ public class PessoaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tbPessoasMouseClicked
 
     private void btGravarMovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGravarMovActionPerformed
-        Date data = null;
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setLenient(false);
-
-        try {
-            data = df.parse(ftfData.getText());
-            movimento = new Movimento();
-            movimento.setData(data);
-            movimento.setQuant(Integer.parseInt(edQuantidade.getText()));
-            if (rbtDepositar.isSelected()) {
-                movimento.setOpe("D");
-                pessoa.depositar(movimento.getQuant());
-            } else {
-                movimento.setOpe("S");
-                pessoa.sacar(movimento.getQuant());
-            }
-
-            movimento.setId_pessoa(pessoa.getId());
-            Integer id = movimentoDAO.create(movimento);
-            pessoaDAO.update(pessoa);
-            edSaldo.setText(pessoa.getSaldo().toString());
-            movimento.setId(id);
-            JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
-        } catch (QuantidadeInvalidaException qi) {
-            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, qi);
-            JOptionPane.showMessageDialog(this, qi.getMessage(), "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
-        } catch (ParseException ex) {
-            //Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Data invalida", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            ftfData.setText("");
-            // data inválida
-        }
-
-        ftfData.setText("");
-        edQuantidade.setText("");
-        btgBotoes.clearSelection();
-        edSaldoMov.setText(pessoa.getSaldo().toString());
-        
-        atualizaMovimentos();
+        gravarMovimento();
     }//GEN-LAST:event_btGravarMovActionPerformed
 
     private void btMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentoActionPerformed
@@ -606,6 +579,10 @@ public class PessoaForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbPessoasKeyPressed
 
+    private void btGravarMovKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btGravarMovKeyPressed
+        gravarMovimento();
+    }//GEN-LAST:event_btGravarMovKeyPressed
+    
     private void selecionarPessoa() {
         pessoa = pessoas.get(tbPessoas.getSelectedRow());
         edId.setText(pessoa.getId().toString());
@@ -620,6 +597,7 @@ public class PessoaForm extends javax.swing.JFrame {
         btGravar.setEnabled(true);
         btCancelar.setEnabled(true);
         btExcluir.setEnabled(true);
+        btPesquisar.grabFocus();
     }
 
     private void pesquisaPessoa() {
@@ -643,6 +621,52 @@ public class PessoaForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void gravarMovimento(){
+        Date data = null;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setLenient(false);
+
+        try {
+            data = df.parse(ftfData.getText());
+            movimento = new Movimento();
+            movimento.setData(data);
+            movimento.setQuant(Integer.parseInt(edQuantidade.getText()));
+            if (rbtDepositar.isSelected()) {
+                movimento.setOpe("D");
+                pessoa.depositar(movimento.getQuant());
+            } else {
+                movimento.setOpe("S");
+                pessoa.sacar(movimento.getQuant());
+            }
+
+            movimento.setId_pessoa(pessoa.getId());
+            Integer id = movimentoDAO.create(movimento);
+            pessoaDAO.update(pessoa);
+            edSaldo.setText(pessoa.getSaldo().toString());
+            movimento.setId(id);
+            JOptionPane.showMessageDialog(this, "Gravado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } catch (QuantidadeInvalidaException qi) {
+            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, qi);
+            JOptionPane.showMessageDialog(this, qi.getMessage(), "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ///Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao gravar pessoa", "Erro", JOptionPane.ERROR);
+        } catch (ParseException ex) {
+            //Logger.getLogger(PessoaForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Data invalida", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            ftfData.setText("");
+            // data inválida
+        }
+
+        ftfData.setText("");
+        edQuantidade.setText("");
+        btgBotoes.clearSelection();
+        edSaldoMov.setText(pessoa.getSaldo().toString());
+        ftfData.grabFocus();
+        
+        atualizaMovimentos();
     }
 
     public static void main(String args[]) {
