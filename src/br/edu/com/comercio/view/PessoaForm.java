@@ -556,6 +556,7 @@ public class PessoaForm extends javax.swing.JFrame {
         pessoa = new Pessoa();
         edId.setText("");
         edNome.setText("");
+        edSaldo.setText("");
         edNome.grabFocus();
 
         edNome.setEnabled(true);
