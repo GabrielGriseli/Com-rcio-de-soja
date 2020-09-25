@@ -7,7 +7,6 @@ import java.sql.SQLException;
 public class Database {
     
     public static Connection getConnection() throws SQLException{
-        Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/DB", "usuario", "senha");
-        return connection;
+        return DriverManager.getConnection("jdbc:derby://localhost:1527/DB", "usuario", "senha");
     }
 }

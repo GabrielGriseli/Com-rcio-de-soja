@@ -33,7 +33,7 @@ public class PessoaDAO {
             con.commit();
         }
         catch (Exception ex){
-            //System.out.println("Erro ao tentar executar inserção: " + ex.getMessage());
+            System.out.println("Erro ao tentar executar inserção: " + ex.getMessage());
             con.rollback();
             throw ex;
         }
@@ -65,7 +65,7 @@ public class PessoaDAO {
     public List<Pessoa> findByNome(String nome) throws SQLException{
         String sql = "Select * from Pessoas p where upper(p.nome) like ?";
         List<Pessoa> pessoas = new ArrayList<>();
-        Pessoa pessoa = null;
+        Pessoa pessoa;
         
         try(PreparedStatement stm = con.prepareStatement(sql)){
             stm.setString(1, "%" + nome.toUpperCase() + "%");

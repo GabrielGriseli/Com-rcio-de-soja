@@ -8,7 +8,6 @@ public class Pessoa {
     private Integer id;
     private String nome;
     private Integer saldo = 0;
-    private List<Movimento> lancamentos = new ArrayList<Movimento>();
 
     public Integer getId() {
         return id;

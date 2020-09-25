@@ -1,11 +1,8 @@
 package br.com.comercio.database;
 
 import br.com.comercio.modelo.Movimento;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +17,9 @@ public class MovimentoDAO {
     public Integer create(Movimento movimento) throws SQLException{
         String sql = "insert into Movimentos (data, ope, quant, id_pessoa) values(?, ?, ?, ?)";
         Integer idCriado = 0;
+
         try (PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            
-            java.sql.Date dataSQL = new java.sql.Date(movimento.getData().getTime());   ///converte a Data do Java para a Data do Banco de Dados para depois gravar.
+            Date dataSQL = new Date(movimento.getData().getTime());   ///converte a Data do Java para a Data do Banco de Dados para depois gravar.
             
             stm.setDate(1, dataSQL);
             stm.setString(2, movimento.getOpe());
@@ -46,7 +43,7 @@ public class MovimentoDAO {
     public List<Movimento> findyById_pessoa(Integer id_pessoa) throws SQLException{
         String sql = "Select * from Movimentos m where m.id_pessoa = ?";
         List<Movimento> movimentos = new ArrayList<>();
-        Movimento movimento = null;
+        Movimento movimento;
         
         try (PreparedStatement stm = con.prepareStatement(sql)){
             stm.setInt(1, id_pessoa);
